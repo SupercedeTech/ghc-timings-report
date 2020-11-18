@@ -51,8 +51,8 @@ main = do
             case stripPrefix dir file of
               Nothing -> Left file
               Just x -> case splitDirectories x of
-                ("/" : "build" : hostOs : ghcVersion : packageName : componentType : subComponent : "build" : modulePath) -> Right GhcFile{..}
-                ("/" : "build" : hostOs : ghcVersion : packageName : "build" : modulePath) ->
+                ("/" : "build" : hostOs : ghcVersion : packageName : componentType : subComponent : "noopt" : "build" : modulePath) -> Right GhcFile{..}
+                ("/" : "build" : hostOs : ghcVersion : packageName : "noopt" : "build" : modulePath) ->
                    let componentType = ""
                        subComponent = ""
                    in Right GhcFile{..}
@@ -62,7 +62,6 @@ main = do
     Prelude.putStrLn "Warning, some files are failed to be parsed"
     Prelude.print files_failed
 
-  
   -- Output all files in json form for later analysis.
   results <- for files_parsed $ \f -> do
     steps <- fmap parsePhases $ T.readFile (rebuildFilePath dir f)

@@ -91,6 +91,9 @@ moduleTable f@GhcFile{..} rows = docTypeHtml $ do
     p $ do
       a ! href (fromString $ rebuildPlainPath f <> ".csv")
         $ "Download as CSV"
+    p $ do
+      a ! href (fromString $ rebuildPlainPath f <> ".json")
+        $ "Open as JSON"
     encodeCellTable
       mempty
       (headed (textCell "number")

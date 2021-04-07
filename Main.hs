@@ -29,7 +29,7 @@ import GhcFile
 import GHC.Exts
 import qualified Data.Vector as V
 import Report
-import System.Directory(copyFile, createDirectoryIfMissing)
+import System.Directory(copyFile, createDirectoryIfMissing, doesFileExist)
 import System.Environment
 import System.FilePath
 import TextShow
@@ -108,7 +108,8 @@ main = do
   -- Report.
   mkHtmlFile "./tmp/index.html"
     $ Report.index $ Map.keys stats_by_package
-  copyFile "files/main.css" "./tmp/main.css" -- TODO use data files
+  doesFileExist "files/main.css" >>= \e ->
+    when e $ copyFile "files/main.css" "./tmp/main.css" -- TODO use data files
   where
     output = "./tmp"
 

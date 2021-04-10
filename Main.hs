@@ -104,6 +104,8 @@ main = do
                ])
     BSL.writeFile (output </> package <.> "csv")
        $ Builder.toLazyByteString bs
+    encodeFile (output </> package <.> "json") $
+      (headers, rows)
   -- Prelude.print byPackage
   -- Report.
   mkHtmlFile "./tmp/index.html"

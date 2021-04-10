@@ -53,6 +53,9 @@ packageTable package_name columns' rows = docTypeHtml $ do
     p $ do
       a ! href (fromString $ package_name <> ".csv")
         $ "Download as CSV"
+    p $ do
+      a ! href (fromString $ package_name <> ".json")
+        $ "Download as JSON"
     encodeCellTable
       mempty
       (headed ((textCell "module name"){ cellAttribute = A.scope "col"})

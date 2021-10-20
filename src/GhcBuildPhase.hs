@@ -36,7 +36,7 @@ data Phase = Phase
 --
 -- Doesn't report errors.
 parsePhases :: T.Text -> [Phase]
-parsePhases input = T.lines input <&> parseStep where
+parsePhases input = map parseStep $ filter (not . T.isPrefixOf "systool") $ T.lines input where
   parseStep line = case T.span (/='[') line of
     (phaseName, T.drop 1 -> rest1) -> case T.span (/=']') rest1 of
       (phaseModule, T.drop 2 -> rest2) -> case T.words rest2 of

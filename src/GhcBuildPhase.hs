@@ -7,7 +7,6 @@ module GhcBuildPhase
 
 import Data.Aeson
 import Data.Csv
-import Data.Functor
 import Data.Maybe
 import qualified Data.Text as T
 import GHC.Generics

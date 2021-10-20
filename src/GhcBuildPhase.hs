@@ -44,4 +44,4 @@ parsePhases input = T.lines input <&> parseStep where
           let phaseAlloc = read $ T.unpack $ fromJust $  T.stripPrefix "alloc=" allocs -- !!!
               phaseTime = read $ T.unpack $ fromJust $  T.stripPrefix "time=" time -- !!!
           in Phase{..}
-        _ -> error $ "illegal line: " <> line
+        _ -> error $ "illegal line: " <> T.unpack line

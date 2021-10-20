@@ -37,11 +37,11 @@ data Phase = Phase
 -- Doesn't report errors.
 parsePhases :: T.Text -> [Phase]
 parsePhases input = T.lines input <&> parseStep where
-  parseStep x = case T.span (/='[') x of
+  parseStep line = case T.span (/='[') line of
     (phaseName, T.drop 1 -> rest1) -> case T.span (/=']') rest1 of
       (phaseModule, T.drop 2 -> rest2) -> case T.words rest2 of
         [allocs, time] ->
           let phaseAlloc = read $ T.unpack $ fromJust $  T.stripPrefix "alloc=" allocs -- !!!
               phaseTime = read $ T.unpack $ fromJust $  T.stripPrefix "time=" time -- !!!
           in Phase{..}
-        _ -> error $ "illegal line: " <> T.unpack rest2
+        _ -> error $ "illegal line: " <> line
